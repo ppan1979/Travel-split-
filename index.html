@@ -79,12 +79,20 @@ body{font-family:var(--sans);background:var(--cream);min-height:100vh;max-width:
 .overlay.show .sheet{transform:translateY(0)}
 .sheet-title-text{text-align:center;font-family:var(–serif);font-size:22px;font-weight:600;margin-bottom:20px;color:var(–dark)}
 
-/* ── Category grid (图三风格：大格、emoji上方) ── */
+/* ── Category grid ── */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.cat-btn{padding:16px 8px 12px;border-radius:16px;cursor:pointer;border:1.5px solid var(–border);background:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s;font-family:var(–sans);font-size:12px;font-weight:500;color:var(–dark)}
-.cat-btn .cat-emoji{font-size:26px;line-height:1}
-.cat-btn.on{background:var(–terra);color:#fff;border-color:var(–terra);box-shadow:0 4px 12px rgba(196,98,45,.35)}
-.cat-btn.off:active{background:var(–sandL)}
+.cat-btn{padding:0;border-radius:18px;cursor:pointer;border:2.5px solid transparent;background:#fff;display:flex;flex-direction:column;align-items:center;gap:0;transition:all .2s;font-family:var(–sans);font-size:12px;font-weight:600;color:var(–dark);overflow:hidden;box-shadow:0 2px 8px rgba(46,26,14,.07)}
+.cat-btn .cat-emoji-wrap{width:100%;padding:16px 8px 10px;display:flex;align-items:center;justify-content:center;font-size:36px;line-height:1;transition:background .2s}
+.cat-btn .cat-label{padding:0 6px 12px;font-size:12px;font-weight:600;transition:color .2s}
+.cat-btn[data-id=“food”] .cat-emoji-wrap{background:#FFF0E4}
+.cat-btn[data-id=“car”]  .cat-emoji-wrap{background:#E4F0FF}
+.cat-btn[data-id=“hotel”] .cat-emoji-wrap{background:#FFF8E4}
+.cat-btn[data-id=“ticket”] .cat-emoji-wrap{background:#F0E4FF}
+.cat-btn[data-id=“shop”] .cat-emoji-wrap{background:#FFE4F0}
+.cat-btn[data-id=“other”] .cat-emoji-wrap{background:#E4FFF0}
+.cat-btn.on{border-color:var(–terra);box-shadow:0 4px 16px rgba(196,98,45,.30)}
+.cat-btn.on .cat-emoji-wrap{background:var(–terra)}
+.cat-btn.on .cat-label{color:var(–terra)}
 
 /* Form inputs */
 .f-label{font-size:11px;color:var(–muted);letter-spacing:1px;text-transform:uppercase;margin:16px 0 8px;display:block;font-weight:700}
@@ -382,7 +390,7 @@ window.openSheet=(keepData=false)=>{
     fCur="EUR"; fPayer=members[0]; fCat="food";
     fSplits={}; members.forEach(m=>fSplits[m]=true);
   }
-  document.getElementById("cat-grid").innerHTML=CATS.map(c=>`<button class="cat-btn ${c.id===fCat?"on":"off"}" onclick="window.pickCat('${c.id}')"><span class="cat-emoji">${c.emoji}</span>${c.label}</button>`).join("");
+  document.getElementById("cat-grid").innerHTML=CATS.map(c=>`<button class="cat-btn ${c.id===fCat?"on":"off"}" data-id="${c.id}" onclick="window.pickCat('${c.id}')"><span class="cat-emoji-wrap">${c.emoji}</span><span class="cat-label">${c.label}</span></button>`).join("");
   renderCurChips(); renderPayerChips(); renderSplitChips();
   document.getElementById("add-overlay").classList.add("show");
 };
@@ -413,7 +421,7 @@ window.delMem=n=>confirm(`刪除 ${n}？`)&&(members=members.filter(x=>x!==n),se
 window.pickCur=id=>{fCur=id;renderCurChips();};
 window.pickPayer=m=>{fPayer=m;renderPayerChips();};
 window.togSplit=m=>{fSplits[m]=!fSplits[m];renderSplitChips();};
-window.pickCat=id=>{fCat=id;document.querySelectorAll(".cat-btn").forEach(b=>b.className="cat-btn "+(b.getAttribute("onclick").includes(`'${id}'`)?"on":"off"));};
+window.pickCat=id=>{fCat=id;document.querySelectorAll(".cat-btn").forEach(b=>{const isOn=b.dataset.id===id;b.className="cat-btn "+(isOn?"on":"off");});};
 function renderCurChips(){document.getElementById("currency-chips").innerHTML=Object.entries(CURRENCIES).map(([id])=>`<button class="chip ${id===fCur?"on":"off"}" onclick="window.pickCur('${id}')">${id}</button>`).join("");}
 function renderPayerChips(){document.getElementById("payer-chips").innerHTML=members.map(m=>`<button class="chip ${m===fPayer?"on":"off"}" onclick="window.pickPayer('${m}')">${m}</button>`).join("");}
 function renderSplitChips(){document.getElementById("split-chips").innerHTML=members.map(m=>`<button class="chip ${fSplits[m]?"on":"off"}" onclick="window.togSplit('${m}')">${m}</button>`).join("");}
