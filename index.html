@@ -17,7 +17,7 @@
 }
 body{font-family:var(--sans);background:var(--cream);min-height:100vh;max-width:430px;margin:0 auto;color:var(--dark);padding-bottom:100px;-webkit-font-smoothing:antialiased}
 
-/* ── Map banner — pure CSS, no external image ── */
+/* ── Map banner — image with CSS gradient fallback ── */
 .map-banner{width:100%;height:200px;position:relative;overflow:hidden}
 .map-banner-bg{
 position:absolute;inset:0;
@@ -35,7 +35,8 @@ radial-gradient(circle at 40% 70%,rgba(255,255,255,.06) 1px,transparent 1px),
 radial-gradient(circle at 90% 60%,rgba(255,255,255,.06) 1px,transparent 1px);
 background-size:100% 100%,100% 100%,100% 100%,50px 50px,70px 70px,40px 40px,60px 60px;
 }
-.map-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(46,26,14,.5) 100%)}
+.map-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.8) brightness(.75)}
+.map-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(46,26,14,.1) 30%,rgba(46,26,14,.65) 100%)}
 .map-label{position:absolute;bottom:20px;left:22px;right:22px}
 .map-eyebrow{font-family:var(–serif);font-style:italic;color:rgba(255,255,255,.85);font-size:13px;letter-spacing:4px;text-transform:uppercase;margin-bottom:6px}
 .map-title{font-family:var(–serif);font-weight:600;color:#fff;font-size:38px;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.4)}
@@ -102,7 +103,7 @@ background-size:100% 100%,100% 100%,100% 100%,50px 50px,70px 70px,40px 40px,60px
 .f-input{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(–border);background:#fff;font-size:16px;outline:none;font-family:var(–sans);transition:border-color .2s;color:var(–dark)}
 .f-input:focus{border-color:#C4622D}
 .sub-btn{width:100%;padding:16px;border-radius:16px;background:#C4622D;color:#fff;font-weight:700;border:none;margin-top:20px;cursor:pointer;font-family:var(–serif);font-style:italic;font-size:19px;letter-spacing:.5px;box-shadow:0 5px 18px rgba(196,98,45,.55)}
-.cancel-btn{width:100%;padding:12px;border-radius:16px;background:transparent;color:#8E8271;font-size:14px;border:1.5px solid #C8B99A;cursor:pointer;margin-top:8px;font-family:var(–sans);font-weight:600}
+.cancel-btn{width:100%;padding:12px;border-radius:16px;background:#fff;color:#5a4a3a;font-size:14px;border:1.5px solid #A89880;cursor:pointer;margin-top:8px;font-family:var(–sans);font-weight:700}
 
 /* ── Category grid — KEY: use inline styles via JS, not CSS selectors ── */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
@@ -119,7 +120,7 @@ border:none;
 .cur-chip-del{background:none;border:none;color:#ccc;cursor:pointer;font-size:16px;padding:0;line-height:1}
 .cur-add-row{display:flex;gap:8px}
 .cur-add-row input{flex:1;padding:10px 14px;border-radius:12px;border:1px solid var(–border);font-size:14px;outline:none;background:#fff;font-family:var(–sans)}
-.cur-add-btn{padding:10px 16px;border-radius:12px;background:var(–sea);color:#fff;border:none;font-weight:700;font-size:14px;cursor:pointer}
+.cur-add-btn{padding:10px 16px;border-radius:12px;background:#C4622D;color:#fff;border:none;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 3px 10px rgba(196,98,45,.4)}
 
 .screen{display:none}.screen.active{display:block}
 .info-box{background:#fff;border-radius:14px;padding:16px;box-shadow:var(–shadow);margin-bottom:14px;font-size:13px;color:var(–muted);line-height:1.7}
@@ -141,6 +142,10 @@ border:none;
 <div class="map-banner">
   <div class="map-banner-bg"></div>
   <div class="map-banner-pattern"></div>
+  <img class="map-img"
+    src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80"
+    onerror="this.style.display='none'"
+    alt="Sicily"/>
   <div class="map-overlay"></div>
   <div class="map-label">
     <div class="map-eyebrow">🌊 Travel Ledger 2026</div>
