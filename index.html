@@ -17,25 +17,28 @@
 }
 body{font-family:var(--sans);background:var(--cream);min-height:100vh;max-width:430px;margin:0 auto;color:var(--dark);padding-bottom:100px;-webkit-font-smoothing:antialiased}
 
-/* ── Map banner ── */
+/* ── Map banner — pure CSS, no external image ── */
 .map-banner{width:100%;height:200px;position:relative;overflow:hidden}
 .map-banner-bg{
 position:absolute;inset:0;
-background:linear-gradient(135deg,#C4622D 0%,#9E4B1F 40%,#7A3510 100%);
+background:linear-gradient(160deg,#D4733D 0%,#B85A24 35%,#8B3D10 70%,#6B2D08 100%);
 }
 .map-banner-pattern{
-position:absolute;inset:0;opacity:.15;
-background-image:radial-gradient(circle at 20% 50%,#fff 1px,transparent 1px),
-radial-gradient(circle at 80% 20%,#fff 1px,transparent 1px),
-radial-gradient(circle at 60% 80%,#fff 1px,transparent 1px);
-background-size:60px 60px,80px 80px,40px 40px;
+position:absolute;inset:0;
+background-image:
+radial-gradient(circle at 15% 25%,rgba(255,255,255,.12) 0%,transparent 35%),
+radial-gradient(circle at 85% 15%,rgba(255,220,180,.15) 0%,transparent 40%),
+radial-gradient(circle at 50% 80%,rgba(0,0,0,.15) 0%,transparent 50%),
+radial-gradient(circle at 20% 50%,rgba(255,255,255,.06) 1px,transparent 1px),
+radial-gradient(circle at 70% 30%,rgba(255,255,255,.06) 1px,transparent 1px),
+radial-gradient(circle at 40% 70%,rgba(255,255,255,.06) 1px,transparent 1px),
+radial-gradient(circle at 90% 60%,rgba(255,255,255,.06) 1px,transparent 1px);
+background-size:100% 100%,100% 100%,100% 100%,50px 50px,70px 70px,40px 40px,60px 60px;
 }
-.map-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;
-filter:saturate(.75) brightness(.7);position:absolute;inset:0}
-.map-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(46,26,14,.1) 0%,rgba(46,26,14,.65) 100%)}
+.map-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(46,26,14,.5) 100%)}
 .map-label{position:absolute;bottom:20px;left:22px;right:22px}
-.map-eyebrow{font-family:var(–serif);font-style:italic;color:rgba(255,255,255,.8);font-size:13px;letter-spacing:4px;text-transform:uppercase;margin-bottom:4px}
-.map-title{font-family:var(–serif);font-weight:600;color:#fff;font-size:34px;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.map-eyebrow{font-family:var(–serif);font-style:italic;color:rgba(255,255,255,.85);font-size:13px;letter-spacing:4px;text-transform:uppercase;margin-bottom:6px}
+.map-title{font-family:var(–serif);font-weight:600;color:#fff;font-size:38px;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.4)}
 
 /* ── Stats bar ── */
 .stats-bar{background:var(–cream);padding:16px 18px;display:flex;gap:0;border-bottom:1px solid var(–border)}
@@ -51,18 +54,18 @@ filter:saturate(.75) brightness(.7);position:absolute;inset:0}
 .nav-icon{font-size:22px}
 
 /* ── FAB ── */
-.fab{position:fixed;bottom:86px;right:18px;width:56px;height:56px;border-radius:50%;background:var(–terra);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(196,98,45,.45);cursor:pointer;border:none;z-index:40}
+.fab{position:fixed;bottom:86px;right:18px;width:56px;height:56px;border-radius:50%;background:#C4622D;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(196,98,45,.6);cursor:pointer;border:none;z-index:40}
 
 /* ── Body ── */
 .body{padding:18px 16px}
 .s-label{font-family:var(–serif);font-weight:600;font-size:20px;color:var(–dark);margin:8px 0 14px;display:flex;justify-content:space-between;align-items:center}
 .s-action{font-family:var(–sans);font-size:12px;color:var(–sea);cursor:pointer;font-weight:700;background:var(–sandL);padding:5px 12px;border-radius:20px}
 
-/* ── Chips ── */
+/* ── Chips — strong terra color ── */
 .chip-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.chip{border-radius:20px;padding:8px 18px;font-size:13px;cursor:pointer;border:1.5px solid;transition:all .15s;font-family:var(–sans);font-weight:600;background:none}
-.chip.on{background:var(–terra);color:#fff;border-color:var(–terra)}
-.chip.off{background:#fff;color:var(–dark);border-color:var(–border)}
+.chip{border-radius:20px;padding:8px 18px;font-size:13px;cursor:pointer;border:2px solid;transition:all .15s;font-family:var(–sans);font-weight:700;background:none}
+.chip.on{background:#C4622D;color:#fff;border-color:#C4622D;box-shadow:0 3px 10px rgba(196,98,45,.4)}
+.chip.off{background:#fff;color:#2E1A0E;border-color:#C8B99A;font-weight:600}
 
 /* ── Expense cards ── */
 .card{background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:10px;box-shadow:var(–shadow);display:flex;gap:14px;align-items:center}
@@ -97,9 +100,9 @@ filter:saturate(.75) brightness(.7);position:absolute;inset:0}
 .sheet-title-text{text-align:center;font-family:var(–serif);font-size:22px;font-weight:600;margin-bottom:20px;color:var(–dark)}
 .f-label{font-size:11px;color:var(–muted);letter-spacing:1px;text-transform:uppercase;margin:16px 0 8px;display:block;font-weight:700}
 .f-input{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(–border);background:#fff;font-size:16px;outline:none;font-family:var(–sans);transition:border-color .2s;color:var(–dark)}
-.f-input:focus{border-color:var(–terra)}
-.sub-btn{width:100%;padding:16px;border-radius:16px;background:var(–terra);color:#fff;font-weight:700;border:none;margin-top:20px;cursor:pointer;font-family:var(–serif);font-style:italic;font-size:19px;letter-spacing:.5px;box-shadow:0 4px 14px rgba(196,98,45,.4)}
-.cancel-btn{width:100%;padding:12px;border-radius:16px;background:transparent;color:var(–muted);font-size:14px;border:none;cursor:pointer;margin-top:6px;font-family:var(–sans)}
+.f-input:focus{border-color:#C4622D}
+.sub-btn{width:100%;padding:16px;border-radius:16px;background:#C4622D;color:#fff;font-weight:700;border:none;margin-top:20px;cursor:pointer;font-family:var(–serif);font-style:italic;font-size:19px;letter-spacing:.5px;box-shadow:0 5px 18px rgba(196,98,45,.55)}
+.cancel-btn{width:100%;padding:12px;border-radius:16px;background:transparent;color:#8E8271;font-size:14px;border:1.5px solid #C8B99A;cursor:pointer;margin-top:8px;font-family:var(–sans);font-weight:600}
 
 /* ── Category grid — KEY: use inline styles via JS, not CSS selectors ── */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
@@ -138,10 +141,6 @@ border:none;
 <div class="map-banner">
   <div class="map-banner-bg"></div>
   <div class="map-banner-pattern"></div>
-  <img class="map-img"
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Sicily.jpg/800px-Collage_of_Sicily.jpg"
-    onerror="this.style.display='none'"
-    alt=""/>
   <div class="map-overlay"></div>
   <div class="map-label">
     <div class="map-eyebrow">🌊 Travel Ledger 2026</div>
