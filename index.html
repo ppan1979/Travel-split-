@@ -490,13 +490,45 @@ function buildAttachPreview(att,small){
 window.viewAttach=encoded=>{
   try{
     const att=JSON.parse(decodeURIComponent(encoded));
+    // Remove existing lightbox if any
+    const old=document.getElementById("lightbox-overlay");
+    if(old) old.remove();
+    const lb=document.createElement("div");
+    lb.id="lightbox-overlay";
+    lb.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px";
     if(att.type&&att.type.startsWith("image/")){
-      const w=window.open("","_blank","width=800,height=600");
-      w.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh"><img src="${att.data}" style="max-width:100%;max-height:100vh;object-fit:contain"/></body></html>`);
+      lb.innerHTML=`
+        <div style="position:absolute;top:16px;right:16px;z-index:1000">
+          <button onclick="document.getElementById('lightbox-overlay').remove()"
+            style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:22px;width:40px;height:40px;border-radius:50%;cursor:pointer">×</button>
+        </div>
+        <img src="${att.data}"
+          style="max-width:100%;max-height:85vh;object-fit:contain;border-radius:10px"/>
+        <div style="margin-top:12px">
+          <a href="${att.data}" download="${att.name||'image'}"
+            style="color:#fff;font-size:13px;opacity:.7;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:6px 16px;border-radius:20px">
+            ⬇ 下載
+          </a>
+        </div>`;
     } else {
-      const a=document.createElement("a");
-      a.href=att.data; a.download=att.name||"attachment.pdf"; a.click();
+      // PDF — use embed inside lightbox
+      lb.innerHTML=`
+        <div style="position:absolute;top:16px;right:16px;z-index:1000">
+          <button onclick="document.getElementById('lightbox-overlay').remove()"
+            style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:22px;width:40px;height:40px;border-radius:50%;cursor:pointer">×</button>
+        </div>
+        <div style="width:100%;max-width:420px;height:80vh;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column">
+          <div style="padding:12px 16px;background:#f5f0e8;font-size:13px;font-weight:600;color:#5a4a3a;display:flex;justify-content:space-between;align-items:center">
+            <span>📄 ${att.name||"PDF 檔案"}</span>
+            <a href="${att.data}" download="${att.name||'attachment.pdf'}"
+              style="color:#C4622D;font-size:12px;text-decoration:none;font-weight:700">⬇ 下載</a>
+          </div>
+          <embed src="${att.data}" type="application/pdf" style="flex:1;width:100%;border:none"/>
+        </div>`;
     }
+    // tap outside to close
+    lb.addEventListener("click",e=>{ if(e.target===lb) lb.remove(); });
+    document.body.appendChild(lb);
   }catch(e){console.error(e);}
 };
 
